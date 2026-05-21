@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Auth - OTP System</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700&display=swap"
+        rel="stylesheet">
+    <!-- otplib for TOTP (Browser Version) -->
+    <script src="https://unpkg.com/@otplib/preset-browser@^12.0.0/buffer.js"></script>
+    <script src="https://unpkg.com/@otplib/preset-browser@^12.0.0/index.js"></script>
+    <!-- qrcode for QR generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body>
+    <div class="background-effects">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Secure Auth</h1>
+            <p>One-Time Password Generator & Verification</p>
+        </header>
+
+        <main>
+            <div class="panel setup-panel">
+                <h2>1. Setup Authenticator</h2>
+                <p>Scan this QR code with Google Authenticator or Authy.</p>
+
+                <div class="qr-container">
+                    <div id="qrcode"></div>
+                </div>
+
+                <div class="secret-container">
+                    <span class="label">Secret Key:</span>
+                    <code id="secret-key">Loading...</code>
+                    <button id="copy-btn" title="Copy to clipboard">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="panel verify-panel">
+                <h2>2. Verify Code</h2>
+                <p>Enter the 6-digit code from your app.</p>
+
+                <div class="input-group">
+                    <input type="text" id="otp-input" maxlength="6" placeholder="000000" autocomplete="off">
+                    <button id="verify-btn">Verify</button>
+                </div>
+
+                <div id="verification-result" class="result-message hidden">
+                    <!-- Result will be injected here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
