@@ -64,8 +64,14 @@ function verifyOTP() {
     }
 
     try {
+        // Temporarily set larger window to allow for time drift
+        const originalOptions = authenticator.options;
+        authenticator.options = { window: 2 };
         
         const isValid = authenticator.check(inputCode, secretKey);
+        
+        // Restore original options
+        authenticator.options = originalOptions;
 
         if (isValid) {
             showResult('Authentication Successful! Valid code.', 'success');
@@ -98,6 +104,9 @@ otpInput.addEventListener('keypress', (e) => {
         verifyOTP();
     }
 });
+
+// Initialize the authenticator when page loads
+initializeAuth();
 
 otpInput.addEventListener('input', (e) => {
     
